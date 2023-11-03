@@ -1,0 +1,2 @@
+class FundoDoMar():
+    pass
