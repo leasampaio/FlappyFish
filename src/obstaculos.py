@@ -1,0 +1,2 @@
+class Obstaculos():
+    pass
