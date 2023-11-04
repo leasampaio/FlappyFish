@@ -4,7 +4,7 @@ class Floor(Image):
     def __init__(self, x):
         self.file = '../assets/floor.png'
         self.x = x
-        self.y = 380
+        self.y = 430
 
         self._speed = 1
     
