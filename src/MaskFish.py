@@ -25,3 +25,7 @@ class MaskFish(Image):
         self.x -= self._speed
         self.y = 250 + self.A * cos(self.w*self.counter)
         self.counter += 1
+        if (self.x >= -80):
+            self.x -= 1
+        else:
+            self.x = 940
