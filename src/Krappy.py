@@ -27,3 +27,8 @@ class Krappy(Image):
     def update(self):
         self.file = self._animation_move.file()
         self.x -= self._speed
+
+        if (self.x >= -80):
+            self.x -= 2
+        else:
+            self.x = 940
