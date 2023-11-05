@@ -16,7 +16,7 @@ class BubbleFish(Image):
         self.file = self._animation.file()
 
         self._speed = 0
-        self._gravity = 0.2
+        self._gravity = 0.5
         self._jump_speed = 10
     
     def jump(self):
@@ -24,3 +24,11 @@ class BubbleFish(Image):
 
     def update(self):
         self.file = self._animation.file()
+        if keyboard.is_key_down('Left'):
+            self.x -= 10
+        if keyboard.is_key_down('Right'):
+            self.x += 10
+        if keyboard.is_key_down('Up'):
+            self.y -= 10
+        if keyboard.is_key_down('Down'):
+            self.y += 10   
