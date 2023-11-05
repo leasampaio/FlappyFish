@@ -3,7 +3,7 @@ from Animation import Animation
 
 class BubbleFish(Image):
     def __init__(self, x, y):
-        self._animation_move = Animation([
+        self._animation = Animation([
             '../assets/bubble-fish/move_0.png',
             '../assets/bubble-fish/move_1.png',
             '../assets/bubble-fish/move_2.png',
@@ -13,7 +13,7 @@ class BubbleFish(Image):
         ])
         self.x = x
         self.y = y
-        self.file = self._animation_move.file()
+        self.file = self._animation.file()
 
         self._speed = 0
         self._gravity = 0.2
@@ -23,4 +23,4 @@ class BubbleFish(Image):
         self._speed = -self._jump_speed
 
     def update(self):
-        self.file = self._animation_move.file()
+        self.file = self._animation.file()

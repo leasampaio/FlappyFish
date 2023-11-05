@@ -22,17 +22,8 @@ class Krappy(Image):
         self.y = y
         self.file = self._animation_move.file()
 
-        self._speed = 0
-        self._gravity = 0.2
-        self._jump_speed = 10
-    
-    def jump(self):
-        self._speed = -self._jump_speed
+        self._speed = 5
 
     def update(self):
         self.file = self._animation_move.file()
-    #     self._speed += self._gravity
-    #     self.y += self._speed
-
-    #     if keyboard.is_key_just_down('space'):
-    #         self.jump()
+        self.x -= self._speed
