@@ -16,11 +16,27 @@ class BubbleFish(Image):
         self.file = self._animation.file()
 
         self._speed = 0
-        self._gravity = 0.2
-        self._jump_speed = 10
+        self._GRAVITY = 2
+        self._JUMP_SPEED = 10
+
+        self._status = 'playing'
+    
+    @property
+    def status(self):
+        return self._status
+    @status.setter
+    def status(self, value):
+        self._status = value
     
     def jump(self):
-        self._speed = -self._jump_speed
+        self._speed = -self._JUMP_SPEED
 
     def update(self):
-        self.file = self._animation.file()
+        if self.status == 'playing':
+            self.file = self._animation.file()
+            self.y += self._speed
+            self._speed += self._GRAVITY
+            if keyboard.is_key_down('space'):
+                self.jump()
+        else:
+            self.file = '../assets/bubble-fish/hit1_0.png'

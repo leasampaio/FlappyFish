@@ -6,10 +6,19 @@ class Ceil(Image):
         self.x = x
         self.y = 0
 
-        self._speed = 1
+        self._speed = 3
+        self._status = 'playing'
+    
+    @property
+    def status(self):
+        return self._status
+    @status.setter
+    def status(self, value):
+        self._status = value
     
     def update(self):
-        self.x -= self._speed
-        if self.x < -600: self.x += 2*1080
-        else: self.x -= self._speed
+        if self._status == 'playing':
+            self.x -= self._speed
+            if self.x < -600: self.x += 2*1080
+            else: self.x -= self._speed
         
