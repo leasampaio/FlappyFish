@@ -7,6 +7,7 @@ from Krappy import Krappy
 from MaskFish import MaskFish
 from tubarao import Tubarao
 from Score import Score
+from GameHandler import GameHandler
 
 class Play(Image):
     
@@ -25,8 +26,8 @@ class Play(Image):
             krappy = Krappy(400,100)
             tubarao = Tubarao(940,250)
             maskfish = MaskFish(400)
+            gamehandler = GameHandler()
             
-
 
 play = Play ('play.png')
 
