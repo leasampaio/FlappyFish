@@ -34,9 +34,13 @@ class BubbleFish(Image):
     def update(self):
         if self.status == 'playing':
             self.file = self._animation.file()
-            self.y += self._speed
-            self._speed += self._GRAVITY
-            if keyboard.is_key_down('space'):
-                self.jump()
+            if keyboard.is_key_down('Left'):
+                self.x -= 10
+            if keyboard.is_key_down('Right'):
+                self.x += 10
+            if keyboard.is_key_down('Up'):
+                self.y -= 10
+            if keyboard.is_key_down('Down'):
+                self.y += 10
         else:
             self.file = '../assets/bubble-fish/hit1_0.png'
