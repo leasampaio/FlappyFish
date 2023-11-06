@@ -34,6 +34,12 @@ class Krappy(Image):
         self._status = value
 
     def update(self):
-        if self._status == 'playing':
-            self.file = self._animation_move.file()
-            self.x -= self._speed
+
+        self.file = self._animation_move.file()
+        self.x -= self._speed
+
+        if (self.x >= -80):
+            self.x -= 2
+        else:
+            self.x = 940
+
