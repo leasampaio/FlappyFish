@@ -1,7 +1,13 @@
-from tupy import Image, keyboard
+from tupy import *
 from Animation import Animation
+from Status import Status
 
 class BubbleFish(Image):
+    LIMIT_R = 920
+    LIMIT_U = 50
+    LIMIT_L = 50
+    LIMIT_D = 430
+
     def __init__(self, x, y):
         self._animation = Animation([
             '../assets/bubble-fish/move_0.png',
@@ -15,9 +21,8 @@ class BubbleFish(Image):
         self.y = y
         self.file = self._animation.file()
 
-        self._speed = 0
-
-        self._status = 'playing'
+        self._speed = 10
+        self._status = Status.GAME
     
     @property
     def status(self):
@@ -25,21 +30,15 @@ class BubbleFish(Image):
     @status.setter
     def status(self, value):
         self._status = value
-        self._gravity = 0.5
-        self._jump_speed = 10
     
-    def jump(self):
-        self._speed = -self._jump_speed
-        if self.status == 'playing':
+    def update(self):
+        if self.status == Status.GAME:
             self.file = self._animation.file()
-            if keyboard.is_key_down('Left'):
-                self.x -= 10
             if keyboard.is_key_down('Right'):
-                self.x += 10
-            if keyboard.is_key_down('Up'):
-                self.y -= 10
-            if keyboard.is_key_down('Down'):
-                self.y += 10
-        else:
-            self.file = '../assets/bubble-fish/hit1_0.png'
-
+                if self.x < BubbleFish.LIMIT_R: self.x += self._speed
+            elif keyboard.is_key_down('Up'):
+                if self.y > BubbleFish.LIMIT_U: self.y -= self._speed
+            elif keyboard.is_key_down('Left'):
+                if self.x > BubbleFish.LIMIT_L: self.x -= self._speed
+            elif keyboard.is_key_down('Down'):
+                if self.y < BubbleFish.LIMIT_D: self.y += self._speed
