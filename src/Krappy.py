@@ -1,5 +1,6 @@
-from tupy import Image, keyboard
+from tupy import *
 from Animation import Animation
+from Status import Status
 
 class Krappy(Image):
     def __init__(self, y, speed):
@@ -24,7 +25,7 @@ class Krappy(Image):
 
         self._speed = speed
 
-        self._status = 'playing'
+        self._status = Status.GAME
     
     @property
     def status(self):
@@ -34,12 +35,6 @@ class Krappy(Image):
         self._status = value
 
     def update(self):
-
         self.file = self._animation_move.file()
-        self.x -= self._speed
-
-        if (self.x >= -80):
-            self.x -= 2
-        else:
-            self.x = 940
-
+        if self.status == Status.GAME:
+            self.x -= self._speed

@@ -1,4 +1,5 @@
-from tupy import Group, Image, keyboard
+from tupy import *
+from Status import Status
 
 class Ceil(Image):
     def __init__(self, x):
@@ -7,7 +8,7 @@ class Ceil(Image):
         self.y = 0
 
         self._speed = 3
-        self._status = 'playing'
+        self._status = Status.GAME
     
     @property
     def status(self):
@@ -17,7 +18,7 @@ class Ceil(Image):
         self._status = value
     
     def update(self):
-        if self._status == 'playing':
+        if self._status == Status.GAME:
             self.x -= self._speed
             if self.x < -600: self.x += 2*1080
             else: self.x -= self._speed
