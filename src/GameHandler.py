@@ -63,10 +63,9 @@ class GameHandler(Image):
 
     def update(self):
         if self.status == Status.START:
-            print("aguardando espaço ser pressionado")
             if keyboard.is_key_just_down('space'):
                 self.status = Status.GAME
-                print(self.status)
+                 
 
         elif self.status == Status.GAME:
             self._counter += 1
@@ -95,7 +94,7 @@ class GameHandler(Image):
                     self._enemies.remove(enemy)
                 elif enemy._collides_with(self._player):
                     self.status = Status.GAME_OVER
-                    print("Deu game over")
+                    
 
             # increase one point for every POINTS_RATE frames
             if self._point_counter >= GameHandler.POINTS_RATE:
@@ -104,5 +103,4 @@ class GameHandler(Image):
 
         elif self.status == Status.GAME_OVER:
                 if keyboard.is_key_just_down('space'):
-                    print(self.status)
                     self.status = Status.GAME
