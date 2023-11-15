@@ -12,9 +12,11 @@ class GameHandler(Image):
     POINTS_RATE = 20
 
     def __init__(self):
+        self.start()
+
+    def start(self):
         self.x = -1000
         self.y = -1000
-
         self._background = Image('../assets/play.png', 500, 250)
         self._ceil = None
         self._floor = None
@@ -28,22 +30,23 @@ class GameHandler(Image):
     @property
     def status(self):
         return self._status
+
     @status.setter
     def status(self, value):
         if self.status == Status.START:
             self._background.destroy()
-            
             self._background = Image('../assets/background.png', 500, 250)
             self._ceil = [Ceil(0), Ceil(1080)]
             self._floor = [Floor(0), Floor(1080)]
             self._player = BubbleFish(200,200)
             self._score = Score()
-
             self._status = Status.GAME
-
             self._counter = self._enemy_spawn_rate
             self._point_counter = 0
         elif self.status == Status.GAME:
+             
+            self._game_over=Image('../assets/game_over.png', 500, 200)
+            self._game_over=Image('../assets/press_space.png', 500, 300)
             self._status = Status.GAME_OVER
             self._player.status = Status.GAME_OVER
             self._ceil[0].status = Status.GAME_OVER
@@ -54,10 +57,17 @@ class GameHandler(Image):
             for enemy in self._enemies:
                 enemy.status = Status.GAME_OVER
 
+        elif self.status == Status.GAME_OVER:
+           self.start()
+
+
     def update(self):
         if self.status == Status.START:
+            print("aguardando espaço ser pressionado")
             if keyboard.is_key_just_down('space'):
                 self.status = Status.GAME
+                print(self.status)
+
         elif self.status == Status.GAME:
             self._counter += 1
             self._point_counter += 1
@@ -85,10 +95,14 @@ class GameHandler(Image):
                     self._enemies.remove(enemy)
                 elif enemy._collides_with(self._player):
                     self.status = Status.GAME_OVER
+                    print("Deu game over")
 
             # increase one point for every POINTS_RATE frames
             if self._point_counter >= GameHandler.POINTS_RATE:
                 self._point_counter -= GameHandler.POINTS_RATE
                 self._score.increase()
-        else:
-            pass
+
+        elif self.status == Status.GAME_OVER:
+                if keyboard.is_key_just_down('space'):
+                    print(self.status)
+                    self.status = Status.GAME
