@@ -31,8 +31,8 @@ class MaskFish(Image):
         self._status = value
 
     def update(self):
-      if self._status == 'playing':
-          self.file = self._animation_move.file()
-          self.x -= self._speed
-          self.y = 250 + self._A * cos(self._w*self._counter + self._d)
-          self._counter += 1
+        self.file = self._animation_move.file()
+        if self._status == 'playing':
+            self.x -= self._speed
+            self.y = 250 + self._A * cos(self._w*self._counter + self._d)
+            self._counter += 1
