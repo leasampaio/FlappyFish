@@ -29,11 +29,14 @@ class BubbleFish(Image):
         return self._status
     @status.setter
     def status(self, value):
+        if value == Status.GAME_OVER:
+            self._animation = Animation(['../assets/bubble-fish/die1_0.png'])
+        
         self._status = value
     
     def update(self):
+        self.file = self._animation.file()
         if self.status == Status.GAME:
-            self.file = self._animation.file()
             if keyboard.is_key_down('Right'):
                 if self.x < BubbleFish.LIMIT_R: self.x += self._speed
             elif keyboard.is_key_down('Up'):

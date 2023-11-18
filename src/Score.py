@@ -53,6 +53,12 @@ class Score:
 
     def increase(self):
         self._increase(1)
+    
+    def destroy(self):
+        for score_list in self._score_list:
+            score_list.destroy()
+        
+        self._score_list.clear()
 
     
 
