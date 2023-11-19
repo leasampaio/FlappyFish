@@ -14,36 +14,43 @@ class GameHandler(Image):
     def __init__(self):
         self.x = -1000
         self.y = -1000
-
-        self._background = Image('../assets/play.png', 500, 250)
         self._ceil = None
         self._floor = None
         self._player = None
         self._score = None
         self._enemies = []
-
-        self._status = Status.START
         self._enemy_spawn_rate = 100
+        self.start()
+
+    def start(self):
+        self._status = Status.START
+        self._background = Image('../assets/play.png', 550, 250)
+
 
     @property
     def status(self):
         return self._status
+
     @status.setter
     def status(self, value):
+        # START -> GAME
         if self.status == Status.START:
+
             self._background.destroy()
-            
             self._background = Image('../assets/background.png', 500, 250)
             self._ceil = [Ceil(0), Ceil(1080)]
             self._floor = [Floor(0), Floor(1080)]
             self._player = BubbleFish(200,200)
             self._score = Score()
-
             self._status = Status.GAME
-
             self._counter = self._enemy_spawn_rate
             self._point_counter = 0
+        
+        # GAME -> GAMEOVER
         elif self.status == Status.GAME:
+             
+            self._game_over = Image('../assets/game_over.png', 500, 200)
+            # self._game_over=Image('../assets/press_space.png', 500, 300)
             self._status = Status.GAME_OVER
             self._player.status = Status.GAME_OVER
             self._ceil[0].status = Status.GAME_OVER
@@ -54,10 +61,35 @@ class GameHandler(Image):
             for enemy in self._enemies:
                 enemy.status = Status.GAME_OVER
 
+        # GAMEOVER -> START
+        elif self.status == Status.GAME_OVER:
+            
+            self._player.destroy()
+            self._player = None
+            for enemy in self._enemies: enemy.destroy()
+            self._enemies.clear()
+            self._ceil[0].destroy()
+            self._ceil[1].destroy()
+            self._ceil.clear()
+            self._floor[0].destroy()
+            self._floor[1].destroy()
+            self._floor.clear()
+            self._game_over.destroy()
+            self._game_over = None
+            self._background.destroy()
+            self._background = None
+            self._score.destroy()
+            self._score = None
+            self.start()
+
+
+
     def update(self):
         if self.status == Status.START:
             if keyboard.is_key_just_down('space'):
                 self.status = Status.GAME
+                 
+
         elif self.status == Status.GAME:
             self._counter += 1
             self._point_counter += 1
@@ -85,10 +117,13 @@ class GameHandler(Image):
                     self._enemies.remove(enemy)
                 elif enemy._collides_with(self._player):
                     self.status = Status.GAME_OVER
+                    
 
             # increase one point for every POINTS_RATE frames
             if self._point_counter >= GameHandler.POINTS_RATE:
                 self._point_counter -= GameHandler.POINTS_RATE
                 self._score.increase()
-        else:
-            pass
+
+        elif self.status == Status.GAME_OVER:
+                if keyboard.is_key_just_down('space'):
+                    self.status = Status.START
