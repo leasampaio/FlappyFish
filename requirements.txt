@@ -1,5 +1,5 @@
-python==3.10
 uvicorn==0.23.2
 pytest==7.4.2
 black==23.9.1
 mypy==1.6.0
+tupy @ git+https://github.com/rodrigorgs/tupy.git@6ae4bacf401f3492a0ff37f83ff92df123379a6b
