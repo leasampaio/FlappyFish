@@ -19,7 +19,7 @@ class MaskFish(Image):
         self.file = self._animation_move.file()
 
         self._speed = 5
-        self._A = 130
+        self._A = 170
         self._w = 0.03 * pi
         self._d = d
         self._counter = 1
