@@ -1,2 +1,2 @@
-class Obstaculos():
+class Obstaculos:
     pass

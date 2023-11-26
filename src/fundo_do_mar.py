@@ -1,2 +1,2 @@
-class FundoDoMar():
+class FundoDoMar:
     pass
